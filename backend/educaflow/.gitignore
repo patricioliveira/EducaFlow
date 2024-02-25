@@ -1,0 +1,10 @@
+*.sqlite3
+*.db
+*.sqlite
+*.pyc
+
+# Diretório __pycache__
+/venv/
+/__pycache__/
+./api/__pycache__/
+/educaflow_commander/__pycache__

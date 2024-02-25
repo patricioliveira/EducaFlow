@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: EducaFlowDB
+      POSTGRES_USER: patricio
+      POSTGRES_PASSWORD: master
+    ports:
+      - "5432:5432"
+    networks:
+      - backend_network
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./backend/educaflow
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    command: dockerize -wait tcp://db:5432 -timeout 1m python manage.py migrate && python manage.py runserver 0.0.0.0:8000
+    networks:
+      - backend_network
+
+  # frontend:
+  #   # Adicione as configurações do seu projeto Angular aqui
+
+networks:
+  backend_network:
+
+volumes:
+  pg_data:

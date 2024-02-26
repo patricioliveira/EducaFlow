@@ -21,7 +21,11 @@ services:
       - "8000:8000"
     depends_on:
       - db
-    command: dockerize -wait tcp://db:5432 -timeout 1m python manage.py migrate && python manage.py runserver 0.0.0.0:8000
+    command: >
+      bash -c "dockerize -wait tcp://db:5432 -timeout 1m &&
+      python manage.py makemigrations &&
+      python manage.py migrate --run-syncdb &&
+      python manage.py runserver 0.0.0.0:8000"
     networks:
       - backend_network
 

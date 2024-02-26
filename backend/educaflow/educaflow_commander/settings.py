@@ -80,7 +80,7 @@ DATABASES = {
         'NAME': 'EducaFlowDB',
         'USER': 'patricio',
         'PASSWORD': 'master',
-        'HOST': 'localhost',  # Docker Compose service name
+        'HOST': 'db',  # Docker Compose service name
         'PORT': '5432',
     }
 }
@@ -103,6 +103,13 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',  # Adicione esta linha
+    ),
+    # ... outras configurações ...
+}
 
 
 # Internationalization

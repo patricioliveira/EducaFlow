@@ -17,5 +17,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Make port 8000 available to the world outside this container
 EXPOSE 8000
 
+# tail -f /dev/null
+
 # Run app.py when the container launches
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "makemigrations", "&&", "python", "manage.py", "migrate", "--run-syncdb", "&&", "python", "manage.py", "runserver"]

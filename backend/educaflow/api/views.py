@@ -1,19 +1,19 @@
 from rest_framework import generics
-from .models import Course, Student
-from .serializers import CourseSerializer, StudentSerializer
+from .models import Curso, Aluno
+from .serializers import CursoSerializer, AlunoSerializer
 
-class CourseListCreateView(generics.ListCreateAPIView):
-    queryset = Course.objects.all()
-    serializer_class = CourseSerializer
+class ListaCursosCreateView(generics.ListCreateAPIView):
+    queryset = Curso.objects.all()
+    serializer_class = CursoSerializer
 
-class CourseDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Course.objects.all()
-    serializer_class = CourseSerializer
+class CursosDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Curso.objects.all()
+    serializer_class = CursoSerializer
 
-class StudentListCreateView(generics.ListCreateAPIView):
-    queryset = Student.objects.all()
-    serializer_class = StudentSerializer
+class ListaAlunosCreateView(generics.ListCreateAPIView):
+    queryset = Aluno.objects.all()
+    serializer_class = AlunoSerializer
 
-class StudentDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Student.objects.all()
-    serializer_class = StudentSerializer
+class AlunoDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Aluno.objects.all()
+    serializer_class = AlunoSerializer

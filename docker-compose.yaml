@@ -29,8 +29,16 @@ services:
     networks:
       - backend_network
 
-  # frontend:
-  #   # Adicione as configurações do seu projeto Angular aqui
+  frontend:
+    build:
+      context: ./frontend 
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000" 
+    depends_on:
+      - backend
+    networks:
+      - backend_network
 
 networks:
   backend_network:

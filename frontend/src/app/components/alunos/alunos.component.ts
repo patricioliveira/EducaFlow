@@ -7,7 +7,7 @@ import { ApiConsumerService } from '../../services/api-consumer.service';
 @Component({
   selector: 'app-alunos',
   templateUrl: './alunos.component.html',
-  styleUrls: ['./alunos.component.css']
+  styleUrls: ['./alunos.component.scss']
 })
 export class AlunosComponent implements OnInit {
   alunos: ResponseApi<Curso> | ResponseApi<Curso>[] = [];

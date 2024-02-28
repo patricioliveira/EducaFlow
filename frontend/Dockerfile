@@ -1,4 +1,3 @@
-# Use the official Node.js image as the base image
 FROM node:20
 
 WORKDIR /app
@@ -6,15 +5,12 @@ WORKDIR /app
 COPY . .
 
 RUN npm install --legacy-peer-deps --silent
+RUN npm run build --prod
 
-EXPOSE 3000
+RUN apt-get update && apt-get install -y nginx
 
-CMD ["ng", "serve", "--port", "3000", "tail", "-f", "/dev/null"]
+COPY nginx/default.conf /etc/nginx/conf.d/
 
+EXPOSE 80
 
-
-# FROM nginx:1.23.2-alpine 
-# VOLUME /var/cache/nginx
-# COPY --from=DeployEducaFlow app/dist/frontend /usr/share/nginx/html
-# COPY  default.conf /etc/nginx/conf.d/default.conf
-
+CMD ["nginx", "-g", "daemon off;"]

@@ -1,6 +1,40 @@
-<!-- cursos.component.html -->
-<div *ngFor="let curso of cursos">
-    <h3>{{ curso.nome_curso }}</h3>
-    <p>{{ curso.descricao }}</p>
-    <!-- Adicione outros campos conforme necessário -->
+<!-- app/components/cursos/cursos.component.html -->
+<div class="container">
+    <h2>Cursos</h2>
+
+    <!-- Lista de Cursos -->
+    <div *ngIf="cursos && cursos.length > 0; else noData">
+        <ul>
+            <li *ngFor="let curso of cursos">
+                {{ curso.nome_curso }} ({{ curso.nome_professor }})
+                <button (click)="onCursoSelected(curso)">Editar</button>
+                <button (click)="deletarCurso(curso?.id)">Excluir</button>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Sem dados -->
+    <ng-template #noData>
+        <p>Sem dados de cursos disponíveis.</p>
+    </ng-template>
+
+    <!-- Formulário para criar ou editar Curso -->
+    <div *ngIf="showForm">
+        <h3>{{ cursoSelecionado ? 'Editar Curso' : 'Novo Curso' }}</h3>
+        <form formGroupName="cursoForm" (ngSubmit)="submitForm()" >
+            <label for="nomeCurso">Nome do Curso:</label>
+            <input type="text" id="nomeCurso" name="nomeCurso" formControlName="nome_curso">
+
+            <label for="nomeProfessor">Nome do Professor:</label>
+            <input type="text" id="nomeProfessor" name="nomeProfessor" formControlName="nome_professor">
+
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" formControlName="descricao"></textarea>
+
+            <button type="submit">{{ cursoSelecionado ? 'Atualizar' : 'Salvar' }}</button>
+        </form>
+    </div>
+
+    <!-- Botão para mostrar/esconder o formulário -->
+    <button (click)="toggleForm()" [disabled]="!cursoForm.valid">Adicionar Curso</button>
 </div>

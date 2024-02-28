@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-$7d&emk%yv6zvs_!t%w4qpa(5!d383x6098dof!fl0d40u4=-#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -39,11 +39,43 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api',
     'drf_yasg',
+    'corsheaders',
 ]
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'http://localhost:8000'
+]
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    'http://localhost:3000',
+    'http://localhost:8000',
+]
+
+CORS_ALLOW_METHODS = (
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+)
+
+CORS_ALLOW_HEADERS = (
+    "accept",
+    "authorization",
+    "content-type",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -81,7 +113,7 @@ DATABASES = {
         'NAME': 'EducaFlowDB',
         'USER': 'patricio',
         'PASSWORD': 'master',
-        'HOST': 'db',  # Docker Compose service name
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
@@ -96,7 +128,6 @@ SWAGGER_SETTINGS = {
             'description': 'Bearer Token',
         },
     },
-    # outras configurações...
 }
 
 
@@ -124,7 +155,6 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
-    # ... outras configurações ...
 }
 
 

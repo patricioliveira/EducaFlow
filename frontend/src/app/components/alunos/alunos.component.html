@@ -1,6 +1,42 @@
-<!-- alunos.component.html -->
-<div *ngFor="let aluno of alunos">
-    <h3>{{ aluno.nome }}</h3>
-    <p>{{ aluno.email }}</p>
-    <!-- Adicione outros campos conforme necessário -->
+<!-- app/components/alunos/alunos.component.html -->
+<div class="container">
+    <h2>Alunos</h2>
+
+    <div *ngIf="alunos && alunos.length > 0">
+        <ul>
+            <li *ngFor="let aluno of alunos">
+                {{ aluno.nome }} ({{ aluno.cpf }})
+                <button (click)="onAlunoSelected(aluno)">Editar</button>
+                <button (click)="deletarAluno(aluno.id)">Excluir</button>
+            </li>
+        </ul>
+    </div>
+
+    <ng-template #noData>
+        <p>Sem dados de alunos disponíveis.</p>
+    </ng-template>
+
+    <div *ngIf="showForm">
+        <h3>{{ alunoSelecionado ? 'Editar Aluno' : 'Novo Aluno' }}</h3>
+        <form formGroupName="alunoForm" (ngSubmit)="submitForm()">
+            <label for="nomeAluno">Nome do Aluno:</label>
+            <input type="text" id="nomeAluno" name="nomeAluno" formControlName="nome" [value]="alunoSelecionado?.nome">
+
+            <label for="cpf">CPF:</label>
+            <input type="text" id="cpf" name="cpf" formControlName="cpf" [value]="alunoSelecionado?.cpf">
+
+            <label for="dataNascimento">Data de Nascimento:</label>
+            <input type="date" id="dataNascimento" name="dataNascimento" formControlName="data_nascimento" [value]="alunoSelecionado?.data_nascimento">
+
+            <label for="genero">Gênero:</label>
+            <input type="text" id="genero" name="genero" formControlName="genero" [value]="alunoSelecionado?.genero">
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" formControlName="email" [value]="alunoSelecionado?.email">
+
+            <button type="submit">{{ alunoSelecionado ? 'Atualizar' : 'Salvar' }}</button>
+        </form>
+    </div>
+
+    <button (click)="toggleForm()" [disabled]="!alunoForm.valid">Adicionar Aluno</button>
 </div>
